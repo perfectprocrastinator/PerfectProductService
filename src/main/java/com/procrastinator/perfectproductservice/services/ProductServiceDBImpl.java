@@ -4,9 +4,11 @@ import com.procrastinator.perfectproductservice.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
-public interface ProductService {
-    Product createProduct(Product product);
+@Service("dbProductService")
+public class ProductServiceDBImpl implements ProductService{
 
-
+    @Override
+    public Product createProduct(Product product) {
+        return null;
+    }
 }

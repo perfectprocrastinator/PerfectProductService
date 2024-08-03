@@ -1,13 +1,15 @@
 package com.procrastinator.perfectproductservice.controllers;
 
-import com.procrastinator.perfectproductservice.dtos.createProductDTO;
-import com.procrastinator.perfectproductservice.dtos.createProductResponseDTO;
+import com.procrastinator.perfectproductservice.dtos.*;
 import com.procrastinator.perfectproductservice.models.Product;
 import com.procrastinator.perfectproductservice.services.ProductService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -19,31 +21,48 @@ public class ProductController {
     public ProductController(@Qualifier("fakeStoreProductService") ProductService productService){
         this.productService=productService;
     }
-    @GetMapping("/{id}/")
-    public String getProduct(@PathVariable("id") Long id){
-        return "GetProduct api is called for id:"+id;
-    }
-    @GetMapping("/")
-    public String getAllProducts(){
-        return "GetAllProducts api is called";
-    }
-
-    @PostMapping("/")
+    @PostMapping
     public createProductResponseDTO createProduct(@RequestBody createProductDTO createProductDTO){
         Product product=productService.createProduct(createProductDTO.toProduct());
         return createProductResponseDTO.fromProduct(product);
 
 
     }
-    @DeleteMapping("/{id}/")
-    public String deleteProduct(@PathVariable Long id){
-        return "Delete product api is called with id:"+id;
+    @GetMapping("/{id}")
+    public Product getProduct(@PathVariable("id") Long id){
+        return productService.getProduct(id);
 
     }
-    @DeleteMapping("/")
-    public String deleteAllProducts(){
-        return "Delete all products api is called";
+    @GetMapping("")
+    public List<GetProductResponseDTO> getAllProducts(){
+        List<Product> productList= productService.getAllProducts();
+        List<GetProductResponseDTO> getProductResponseDTOList=new ArrayList<>();
+        for(Product p:productList){
+//            GetProductResponseDTO getProductResponseDTO=new GetProductResponseDTO();
+//            getProductResponseDTO.setId(p.getId());
+//            getProductResponseDTO.setDescription(p.getDescription());
+//            getProductResponseDTO.setTitle(p.getTitle());
+//            getProductResponseDTO.setPrice(p.getPrice());
+//            getProductResponseDTO.setCategory(p.getCategory());
+//            getProductResponseDTO.setImageUrl(p.getImageUrl());
+//            getProductResponseDTOList.add(getProductResponseDTO);
+
+        }
+        return getProductResponseDTOList;
     }
+
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+    }
+
+    @PatchMapping("/{id}")
+    public UpdateProductDTO updateProduct(@PathVariable Long id){
+            productService.updateProduct(id);
+
+    }
+
 
     @RequestMapping(name = "BILAL" ,value = "/")
     public String customRequest(){

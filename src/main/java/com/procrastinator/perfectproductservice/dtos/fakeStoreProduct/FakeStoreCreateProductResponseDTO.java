@@ -1,6 +1,5 @@
-package com.procrastinator.perfectproductservice.dtos;
+package com.procrastinator.perfectproductservice.dtos.fakeStoreProduct;
 
-import com.procrastinator.perfectproductservice.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 

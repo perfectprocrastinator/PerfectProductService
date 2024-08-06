@@ -1,6 +1,6 @@
 package com.procrastinator.perfectproductservice.services;
 
-import com.procrastinator.perfectproductservice.dtos.*;
+import com.procrastinator.perfectproductservice.dtos.fakeStoreProduct.*;
 import com.procrastinator.perfectproductservice.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -57,14 +57,7 @@ public class ProductServiceFakeStoreImpl implements ProductService{
         FakeStoreGetProductResponseDTO[] fakeStoreGetProductResponseDTOList=restTemplate.getForObject("https://fakestoreapi.com/products",FakeStoreGetProductResponseDTO[].class);
         List<Product> productList=new ArrayList<>();
         for(FakeStoreGetProductResponseDTO fakeStoreGetProductResponseDTO:fakeStoreGetProductResponseDTOList){
-            Product product1=new Product();
-            product1.setId(fakeStoreGetProductResponseDTO.getId());
-            product1.setTitle(fakeStoreGetProductResponseDTO.getTitle());
-            product1.setDescription(fakeStoreGetProductResponseDTO.getDescription());
-            product1.setCategory(fakeStoreGetProductResponseDTO.getCategory());
-            product1.setImageUrl(fakeStoreGetProductResponseDTO.getImage());
-            product1.setPrice(fakeStoreGetProductResponseDTO.getPrice());
-            productList.add(product1);
+            productList.add(fakeStoreGetProductResponseDTO.toProduct());
         }
         return productList;
 
@@ -76,10 +69,11 @@ public class ProductServiceFakeStoreImpl implements ProductService{
         System.out.println("Delete success");
 
     }
-    public Product updateProduct(Long id){
+    public Product partialUpdateProduct(Long id){
 
-        FakeStoreUpdateProductDTO fakeStoreUpdateProductDTO=restTemplate.patchForObject("https://fakestoreapi.com/products/"+id,FakeStoreUpdateProductDTO.class);
-        return fakeStoreUpdateProductDTO;
+          FakeStoreUpdateProductDTO fakeStoreUpdateProductDTO=restTemplate.patchForObject("https://fakestoreapi.com/products/"+id,FakeStoreUpdateProductDTO.class);
+          return fakeStoreUpdateProductDTO;
+        return null;
     }
 
 

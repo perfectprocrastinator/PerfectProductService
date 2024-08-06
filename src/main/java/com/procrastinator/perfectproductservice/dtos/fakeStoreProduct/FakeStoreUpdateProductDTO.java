@@ -1,4 +1,4 @@
-package com.procrastinator.perfectproductservice.dtos;
+package com.procrastinator.perfectproductservice.dtos.fakeStoreProduct;
 
 public class FakeStoreUpdateProductDTO {
     FakeStoreProductDTO fakeStoreProductDTO;

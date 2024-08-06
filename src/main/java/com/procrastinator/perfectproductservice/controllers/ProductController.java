@@ -1,6 +1,6 @@
 package com.procrastinator.perfectproductservice.controllers;
 
-import com.procrastinator.perfectproductservice.dtos.*;
+import com.procrastinator.perfectproductservice.dtos.product.*;
 import com.procrastinator.perfectproductservice.models.Product;
 import com.procrastinator.perfectproductservice.services.ProductService;
 import lombok.Getter;
@@ -22,9 +22,9 @@ public class ProductController {
         this.productService=productService;
     }
     @PostMapping
-    public createProductResponseDTO createProduct(@RequestBody createProductDTO createProductDTO){
+    public CreateProductResponseDTO createProduct(@RequestBody CreateProductDTO createProductDTO){
         Product product=productService.createProduct(createProductDTO.toProduct());
-        return createProductResponseDTO.fromProduct(product);
+        return CreateProductResponseDTO.fromProduct(product);
 
 
     }
@@ -34,21 +34,19 @@ public class ProductController {
 
     }
     @GetMapping("")
-    public List<GetProductResponseDTO> getAllProducts(){
+    public GetAllProductResponseDTO getAllProducts(){
+        System.out.println("Calling getAllProducts service");
         List<Product> productList= productService.getAllProducts();
-        List<GetProductResponseDTO> getProductResponseDTOList=new ArrayList<>();
-        for(Product p:productList){
-//            GetProductResponseDTO getProductResponseDTO=new GetProductResponseDTO();
-//            getProductResponseDTO.setId(p.getId());
-//            getProductResponseDTO.setDescription(p.getDescription());
-//            getProductResponseDTO.setTitle(p.getTitle());
-//            getProductResponseDTO.setPrice(p.getPrice());
-//            getProductResponseDTO.setCategory(p.getCategory());
-//            getProductResponseDTO.setImageUrl(p.getImageUrl());
-//            getProductResponseDTOList.add(getProductResponseDTO);
+
+        System.out.println("Call finish");
+        GetAllProductResponseDTO responseDTO=new GetAllProductResponseDTO();
+        List<GetProductDTO> getProductDTOList=new ArrayList<>();
+        for(Product product:productList){
+            getProductDTOList.add(GetProductDTO.fromProduct(product));
 
         }
-        return getProductResponseDTOList;
+        responseDTO.setProducts(getProductDTOList);
+        return responseDTO;
     }
 
 
@@ -58,8 +56,9 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public UpdateProductDTO updateProduct(@PathVariable Long id){
-            productService.updateProduct(id);
+    public PatchProductResponseDTO updateProduct(@PathVariable Long id){
+            Product product=productService.partialUpdateProduct(id);
+            return null;
 
     }
 

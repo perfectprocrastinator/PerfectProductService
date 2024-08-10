@@ -1,9 +1,11 @@
-package com.procrastinator.perfectproductservice.dtos;
+package com.procrastinator.perfectproductservice.dtos.fakeStoreProduct;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
-public class FakeStoreCreateProductResponseDTO {
+public class FakeStoreProductDTO {
     private Long id;
     private String title;
     private double price;

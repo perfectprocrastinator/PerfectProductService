@@ -18,55 +18,53 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
     //Qualifier is used to tell Spring which class's object to inject when Spring itself can't decide which object to inject
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService){
+    public ProductController(@Qualifier("dbProductService") ProductService productService){
         this.productService=productService;
     }
     @PostMapping
     public CreateProductResponseDTO createProduct(@RequestBody CreateProductDTO createProductDTO){
         Product product=productService.createProduct(createProductDTO.toProduct());
         return CreateProductResponseDTO.fromProduct(product);
-
-
     }
-    @GetMapping("/{id}")
-    public Product getProduct(@PathVariable("id") Long id){
-        return productService.getProduct(id);
-
-    }
-    @GetMapping("")
-    public GetAllProductResponseDTO getAllProducts(){
-        System.out.println("Calling getAllProducts service");
-        List<Product> productList= productService.getAllProducts();
-
-        System.out.println("Call finish");
-        GetAllProductResponseDTO responseDTO=new GetAllProductResponseDTO();
-        List<GetProductDTO> getProductDTOList=new ArrayList<>();
-        for(Product product:productList){
-            getProductDTOList.add(GetProductDTO.fromProduct(product));
-
-        }
-        responseDTO.setProducts(getProductDTOList);
-        return responseDTO;
-    }
-
-
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id){
-        productService.deleteProduct(id);
-    }
-
-    @PatchMapping("/{id}")
-    public PatchProductResponseDTO updateProduct(@PathVariable Long id){
-            Product product=productService.partialUpdateProduct(id);
-            return null;
-
-    }
-
-
-    @RequestMapping(name = "BILAL" ,value = "/")
-    public String customRequest(){
-        return "Custom REST Method is called";
-    }
+//    @GetMapping("/{id}")
+//    public Product getProduct(@PathVariable("id") Long id){
+//        return productService.getProduct(id);
+//
+//    }
+//    @GetMapping("")
+//    public GetAllProductResponseDTO getAllProducts(){
+//        System.out.println("Calling getAllProducts service");
+//        List<Product> productList= productService.getAllProducts();
+//
+//        System.out.println("Call finish");
+//        GetAllProductResponseDTO responseDTO=new GetAllProductResponseDTO();
+//        List<GetProductDTO> getProductDTOList=new ArrayList<>();
+//        for(Product product:productList){
+//            getProductDTOList.add(GetProductDTO.fromProduct(product));
+//
+//        }
+//        responseDTO.setProducts(getProductDTOList);
+//        return responseDTO;
+//    }
+//
+//
+//    @DeleteMapping("/{id}")
+//    public void deleteProduct(@PathVariable Long id){
+//        productService.deleteProduct(id);
+//    }
+//
+//    @PatchMapping("/{id}")
+//    public PatchProductResponseDTO updateProduct(@PathVariable Long id){
+//            Product product=productService.partialUpdateProduct(id);
+//            return null;
+//
+//    }
+//
+//
+//    @RequestMapping(name = "BILAL" ,value = "/")
+//    public String customRequest(){
+//        return "Custom REST Method is called";
+//    }
 
 
 }

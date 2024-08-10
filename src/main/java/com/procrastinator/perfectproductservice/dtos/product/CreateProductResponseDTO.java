@@ -1,5 +1,6 @@
 package com.procrastinator.perfectproductservice.dtos.product;
 
+import com.procrastinator.perfectproductservice.models.Category;
 import com.procrastinator.perfectproductservice.models.Product;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ public class CreateProductResponseDTO {
     private String description;
     private String imageUrl;
     private double price;
-    private String category;
+    private String categoryName;
     public static CreateProductResponseDTO fromProduct(Product product){
         CreateProductResponseDTO responseDTO=new CreateProductResponseDTO();
         responseDTO.setId(product.getId());
@@ -20,7 +21,7 @@ public class CreateProductResponseDTO {
         responseDTO.setDescription(product.getDescription());
         responseDTO.setPrice(product.getPrice());
         responseDTO.setImageUrl(product.getImageUrl());
-        responseDTO.setCategory(product.getCategory());
+        responseDTO.setCategoryName(product.getCategory().getName());
         return responseDTO;
     }
 }

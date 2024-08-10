@@ -21,7 +21,7 @@ public class ProductServiceFakeStoreImpl implements ProductService{
         FakeStoreCreateProductDTO fakeStoreCreateProductDTO=new FakeStoreCreateProductDTO();
         fakeStoreCreateProductDTO.setTitle(product.getTitle());
         fakeStoreCreateProductDTO.setPrice(product.getPrice());
-        fakeStoreCreateProductDTO.setCategory(product.getCategory());
+        //fakeStoreCreateProductDTO.setCategory(product.getCategory());
         fakeStoreCreateProductDTO.setDescription(product.getDescription());
         fakeStoreCreateProductDTO.setImage(product.getImageUrl());
         FakeStoreCreateProductResponseDTO responseDTO=restTemplate.postForObject("https://fakestoreapi.com/products",
@@ -32,7 +32,7 @@ public class ProductServiceFakeStoreImpl implements ProductService{
         product1.setId(fakeStoreProductDTO.getId());
         product1.setTitle(fakeStoreProductDTO.getTitle());
         product1.setDescription(fakeStoreProductDTO.getDescription());
-        product1.setCategory(fakeStoreProductDTO.getCategory());
+        //product1.setCategory(fakeStoreProductDTO.getCategory());
         product1.setImageUrl(fakeStoreProductDTO.getImage());
         product1.setPrice(fakeStoreProductDTO.getPrice());
         return product1;
@@ -45,7 +45,7 @@ public class ProductServiceFakeStoreImpl implements ProductService{
         product1.setId(fakeStoreGetProductResponseDTO.getId());
         product1.setTitle(fakeStoreGetProductResponseDTO.getTitle());
         product1.setDescription(fakeStoreGetProductResponseDTO.getDescription());
-        product1.setCategory(fakeStoreGetProductResponseDTO.getCategory());
+       // product1.setCategory(fakeStoreGetProductResponseDTO.getCategory());
         product1.setImageUrl(fakeStoreGetProductResponseDTO.getImage());
         product1.setPrice(fakeStoreGetProductResponseDTO.getPrice());
         return product1;
@@ -71,8 +71,8 @@ public class ProductServiceFakeStoreImpl implements ProductService{
     }
     public Product partialUpdateProduct(Long id){
 
-          FakeStoreUpdateProductDTO fakeStoreUpdateProductDTO=restTemplate.patchForObject("https://fakestoreapi.com/products/"+id,FakeStoreUpdateProductDTO.class);
-          return fakeStoreUpdateProductDTO;
+          //FakeStoreUpdateProductDTO fakeStoreUpdateProductDTO=restTemplate.patchForObject("https://fakestoreapi.com/products/"+id,FakeStoreUpdateProductDTO.class);
+         // return fakeStoreUpdateProductDTO;
         return null;
     }
 

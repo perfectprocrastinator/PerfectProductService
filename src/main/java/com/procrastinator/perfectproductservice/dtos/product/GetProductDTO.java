@@ -1,5 +1,6 @@
 package com.procrastinator.perfectproductservice.dtos.product;
 
+import com.procrastinator.perfectproductservice.models.Category;
 import com.procrastinator.perfectproductservice.models.Product;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ public class GetProductDTO {
     private String description;
     private String imageUrl;
     private double price;
-    private String category;
+    private Category category;
     public static GetProductDTO fromProduct(Product product){
         GetProductDTO responseDTO=new GetProductDTO();
         responseDTO.setId(product.getId());

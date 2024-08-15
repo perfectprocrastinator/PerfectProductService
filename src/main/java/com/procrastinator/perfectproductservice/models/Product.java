@@ -1,10 +1,9 @@
 package com.procrastinator.perfectproductservice.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.transaction.TransactionTimedOutException;
 
 @Getter
 @Setter
@@ -12,7 +11,7 @@ import lombok.Setter;
 public class Product extends BaseModel{
     private String title;
     private String description;
-    private double price;
+    private Double price;
     private String imageUrl;
     @ManyToOne
     private Category category;

@@ -75,6 +75,9 @@ public class ProductServiceFakeStoreImpl implements ProductService{
          // return fakeStoreUpdateProductDTO;
         return null;
     }
+    public Product updateProduct(Long id, Product product){
+        return null;
+    }
 
 
 

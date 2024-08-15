@@ -1,12 +1,12 @@
 package com.procrastinator.perfectproductservice.dtos.product;
 
-import com.procrastinator.perfectproductservice.dtos.fakeStoreProduct.FakeStoreProductDTO;
-import com.procrastinator.perfectproductservice.models.Product;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
 public class GetProductResponseDTO {
-
+    private GetProductDTO product;
 }

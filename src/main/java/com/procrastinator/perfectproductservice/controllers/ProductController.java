@@ -1,8 +1,10 @@
 package com.procrastinator.perfectproductservice.controllers;
 
 import com.procrastinator.perfectproductservice.dtos.product.*;
+import com.procrastinator.perfectproductservice.exceptions.InvalidParameterException;
 import com.procrastinator.perfectproductservice.models.Product;
 import com.procrastinator.perfectproductservice.services.ProductService;
+import com.procrastinator.perfectproductservice.validations.productValidation.PutProductValidation;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,54 +43,39 @@ public class ProductController {
     public GetProductResponseDTO getProduct(@PathVariable("id") Long id){
         Product product=productService.getProduct(id);
         GetProductResponseDTO getProductResponseDTO=new GetProductResponseDTO();
-        getProductResponseDTO.setProduct(GetProductDTO.fromProduct(product));
+        getProductResponseDTO.setGetProductDTO(GetProductDTO.fromProduct(product));
         return getProductResponseDTO;
     }
-//    @PutMapping("/{id}")
-//    public UpdateProductResponseDTO updateProduct(@PathVariable("id") Long id,@RequestBody CreateProductDTO createProductDTO){
-//        Product product=productService.updateProduct(id,createProductDTO.toProduct());
-//    }
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+    }
+    @PatchMapping("/{id}")
+    public UpdateProductResponseDTO patchProduct(@PathVariable("id") Long id,@RequestBody CreateProductDTO createProductDTO){
+        Product product=productService.patchProduct(id,createProductDTO.toProduct());
+        UpdateProductResponseDTO updateProductResponseDTO=new UpdateProductResponseDTO();
+        updateProductResponseDTO.setGetProductDTO(GetProductDTO.fromProduct(product));
+        return updateProductResponseDTO;
+    }
+    @PutMapping("/{id}")
+    public UpdateProductResponseDTO putProduct(@PathVariable("id") Long id,@RequestBody CreateProductDTO createProductDTO){
+        if(!PutProductValidation.isValid(createProductDTO)){
+            throw new InvalidParameterException("putProduct api is called with missing parameter values");
+        }
+        Product product=productService.putProduct(id,createProductDTO.toProduct());
+        UpdateProductResponseDTO updateProductResponseDTO=new UpdateProductResponseDTO();
+        updateProductResponseDTO.setGetProductDTO(GetProductDTO.fromProduct(product));
+        return updateProductResponseDTO;
+    }
 
 
-//    @GetMapping("/{id}")
-//    public Product getProduct(@PathVariable("id") Long id){
-//        return productService.getProduct(id);
-//
-//    }
-//    @GetMapping("")
-//    public GetAllProductResponseDTO getAllProducts(){
-//        System.out.println("Calling getAllProducts service");
-//        List<Product> productList= productService.getAllProducts();
-//
-//        System.out.println("Call finish");
-//        GetAllProductResponseDTO responseDTO=new GetAllProductResponseDTO();
-//        List<GetProductDTO> getProductDTOList=new ArrayList<>();
-//        for(Product product:productList){
-//            getProductDTOList.add(GetProductDTO.fromProduct(product));
-//
-//        }
-//        responseDTO.setProducts(getProductDTOList);
-//        return responseDTO;
-//    }
-//
-//
-//    @DeleteMapping("/{id}")
-//    public void deleteProduct(@PathVariable Long id){
-//        productService.deleteProduct(id);
-//    }
-//
-//    @PatchMapping("/{id}")
-//    public PatchProductResponseDTO updateProduct(@PathVariable Long id){
-//            Product product=productService.partialUpdateProduct(id);
-//            return null;
-//
-//    }
-//
-//
-//    @RequestMapping(name = "BILAL" ,value = "/")
-//    public String customRequest(){
-//        return "Custom REST Method is called";
-//    }
+
+
+
+    @RequestMapping(name = "BILAL" ,value = "/")
+    public String customRequest(){
+        return "Custom REST Method is called";
+    }
 
 
 }

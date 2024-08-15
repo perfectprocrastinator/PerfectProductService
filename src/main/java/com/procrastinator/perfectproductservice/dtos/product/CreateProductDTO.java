@@ -12,7 +12,7 @@ public class CreateProductDTO {
     private String title;
     private String description;
     private String imageUrl;
-    private double price;
+    private Double price;
     private String categoryName;
     public static CreateProductDTO fromProduct(Product product){
         CreateProductDTO responseDTO=new CreateProductDTO();

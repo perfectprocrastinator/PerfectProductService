@@ -50,33 +50,62 @@ public class ProductServiceDBImpl implements ProductService{
         return product.get();
     }
     @Override
-    public Product updateProduct(Long id, Product product){
-        Optional<Product> savedProduct=productRepository.findById(id);
-        if(savedProduct.isEmpty()){
-            //Product with that Id does not exists
-            throw new ProductNotFoundException("The product with id "+id+" does not exists");
+    public  void deleteProduct(Long id){
+        productRepository.deleteById(id);
+    }
+    @Override
+    public Product patchProduct(Long id,Product updatedProduct){
+        Optional<Product> optionalProduct=productRepository.findById(id);
+        if(optionalProduct.isEmpty()){
+            throw new ProductNotFoundException("The product to be changed does not exists in DB");
         }
-        Product productToUpdate=savedProduct.get();
-        if(product.getTitle() != null){
-            productToUpdate.setTitle(product.getTitle());
+        Product savedProduct=optionalProduct.get();
+        if(updatedProduct.getTitle() != null){
+            savedProduct.setTitle(updatedProduct.getTitle());
         }
-        if(product.getPrice() != null){
-            productToUpdate.setPrice(product.getPrice());
+        if(updatedProduct.getPrice() != null){
+            savedProduct.setPrice(updatedProduct.getPrice());
         }
-        if(product.getDescription() != null){
-            productToUpdate.setDescription(product.getDescription());
+        if(updatedProduct.getDescription() != null){
+            savedProduct.setDescription(updatedProduct.getDescription());
         }
-        if(product.getImageUrl() != null){
-            productToUpdate.setImageUrl(product.getImageUrl());
+        if(updatedProduct.getImageUrl() != null){
+            savedProduct.setImageUrl(updatedProduct.getImageUrl());
         }
-        if(product.getCategory() != null){
-            Category updatedCategory=product.getCategory();
-            productToUpdate.setCategory(updatedCategory);
+        if(updatedProduct.getCategory() != null){
+            Category updatedCategory=updatedProduct.getCategory();
+            savedProduct.setCategory(updatedCategory);
         }
-        return productRepository.save(productToUpdate);
-
-
-
+        categoryRepository.save(savedProduct.getCategory());
+        productRepository.save(savedProduct);
+        return savedProduct;
+    }
+    @Override
+    public Product putProduct(Long id,Product updatedProduct){
+        Optional<Product> optionalProduct=productRepository.findById(id);
+        if(optionalProduct.isEmpty()){
+            throw new ProductNotFoundException("The product to be changed does not exists in DB");
+        }
+        Product savedProduct=optionalProduct.get();
+        if(updatedProduct.getTitle() != null){
+            savedProduct.setTitle(updatedProduct.getTitle());
+        }
+        if(updatedProduct.getPrice() != null){
+            savedProduct.setPrice(updatedProduct.getPrice());
+        }
+        if(updatedProduct.getDescription() != null){
+            savedProduct.setDescription(updatedProduct.getDescription());
+        }
+        if(updatedProduct.getImageUrl() != null){
+            savedProduct.setImageUrl(updatedProduct.getImageUrl());
+        }
+        if(updatedProduct.getCategory() != null){
+            Category updatedCategory=updatedProduct.getCategory();
+            savedProduct.setCategory(updatedCategory);
+        }
+        categoryRepository.save(savedProduct.getCategory());
+        productRepository.save(savedProduct);
+        return savedProduct;
     }
 
 

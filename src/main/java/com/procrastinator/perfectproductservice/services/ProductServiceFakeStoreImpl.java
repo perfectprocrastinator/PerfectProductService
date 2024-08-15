@@ -1,12 +1,15 @@
 package com.procrastinator.perfectproductservice.services;
 
 import com.procrastinator.perfectproductservice.dtos.fakeStoreProduct.*;
+import com.procrastinator.perfectproductservice.exceptions.ProductNotFoundException;
+import com.procrastinator.perfectproductservice.models.Category;
 import com.procrastinator.perfectproductservice.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service("fakeStoreProductService")
 public class ProductServiceFakeStoreImpl implements ProductService{
@@ -69,16 +72,15 @@ public class ProductServiceFakeStoreImpl implements ProductService{
         System.out.println("Delete success");
 
     }
-    public Product partialUpdateProduct(Long id){
-
-          //FakeStoreUpdateProductDTO fakeStoreUpdateProductDTO=restTemplate.patchForObject("https://fakestoreapi.com/products/"+id,FakeStoreUpdateProductDTO.class);
-         // return fakeStoreUpdateProductDTO;
+    @Override
+    public Product patchProduct(Long id,Product updatedProduct){
         return null;
     }
-    public Product updateProduct(Long id, Product product){
+    @Override
+    public Product putProduct(Long id,Product updatedProduct){
+
         return null;
     }
-
 
 
 }

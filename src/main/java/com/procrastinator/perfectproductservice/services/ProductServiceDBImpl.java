@@ -47,6 +47,9 @@ public class ProductServiceDBImpl implements ProductService{
     @Override
     public Product getProduct(Long id){
         Optional<Product> product=productRepository.findById(id);
+        if(product.isEmpty()){
+            throw new ProductNotFoundException("There is no such product in catalogue");
+        }
         return product.get();
     }
     @Override

@@ -6,7 +6,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-
+/*
+This class is created because there are some dependencies which are not provided out of the box
+Even if you include those dependencies in pom.xml spring doesn't create bean objects and asks
+us to create those objects manually */
 @Configuration
 public class ApplicationConfiguration {
     @Bean
